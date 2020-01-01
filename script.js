@@ -9,7 +9,6 @@ var newColorDipsplay = document.querySelector("div");
 //Set the values of the colors from the inputs
 function changInpColor() {
 	color1.value = "#ff0000";
-
 	color2.value = "#ffff00";
 }
 
@@ -22,24 +21,46 @@ function onloadInitial() {
 		styles.backgroundImage;
 }
 
+// Get random rgb value
+function hexToRgb(hex) {
+	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+	return result ? {
+		r: parseInt(result[1], 16),
+		g: parseInt(result[2], 16),
+		b: parseInt(result[3], 16)
+	} : null;
+}
 
 // Generating Random Colors and adding them to the Dom Inside a Div
 function hexRandomNumber() {
-	var sugNumber1 = '#' + Math.floor(Math.random() * 16777215).toString(16);
+	var hexNumber1 = '#' + Math.floor(Math.random() * 16777215).toString(16);
+	var hexNumber2 = '#' + Math.floor(Math.random() * 16777215).toString(16);
 
-	var sugNumber2 = '#' + Math.floor(Math.random() * 16777215).toString(16);
+	// Get random hex to rgb value
+	function hexToRgb(hex) {
+		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		return result ? {
+			r: parseInt(result[1], 16),
+			g: parseInt(result[2], 16),
+			b: parseInt(result[3], 16)
+		} : null;
+	}
 
+	// Creating the rgb display
+	var sugNumber1 = `(${hexToRgb(hexNumber1).r}, ${hexToRgb(hexNumber1).g}, ${hexToRgb(hexNumber1).b})`;
+	var sugNumber2 = `(${hexToRgb(hexNumber2).r}, ${hexToRgb(hexNumber2).g}, ${hexToRgb(hexNumber2).b}))` + ";";
+	
+	// Displaying the new colors
 	newColorDipsplay.innerHTML = `<h2>YOU CAN TRY THESE COLORS TOO:</h2>
 			<h3>Add them to your CSS</h3>
 			<input 
-			class="color1" type="color" name="color1"  
-			value="${sugNumber1}">
+			class="color1" type="color" name="color1" 
+			value="${hexNumber1}">
 			<input 
-			class="color2" type="color" name="color2" value="${sugNumber2}";
+			class="color2" type="color" name="color2" value="${hexNumber2}";
 			<br>
-			<h3>${body.style.backgroundImage + ";"}</h3>`
+			<h3>linear-gradient(to right, rgb${sugNumber1}, rgb${sugNumber2}</h3>`;
 }
-
 
 // Changing the background color and add text with the values to the h3 element
 function bgChange() {
@@ -51,6 +72,7 @@ function bgChange() {
 
 	css.textContent = body.style.background + ";";
 
+	// calling the 
 	hexRandomNumber();
 }
 
